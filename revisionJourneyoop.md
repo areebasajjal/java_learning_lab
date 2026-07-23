@@ -95,3 +95,8 @@ Both have the same constructor signature:
 
 Student(String)
 
+# encapsulation
+Encapsulation means:
+Keep an object’s data and the operations that control that data together, while restricting direct access to its internal state.
+
+Don’t automatically create a getter and setter for every field. Expose only the operations outside code genuinely needs.
