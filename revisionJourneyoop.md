@@ -12,6 +12,17 @@ s1: reference ──────────────> Student object
                                  name = null (default values unless specifically assigned )
                                  age = 0
 
+# how object references work in java 
+A reference variable is not the object. It stores a reference that lets Java reach the object.
+
+FOR student = new Student();
+
+Java evaluates the right-hand side first:
+
+new Student() creates a new object.
+It returns a reference to that object.
+= stores that reference in student, replacing its previous reference.
+
 # class/static variables vs instance variables
 static variables are shared by all objects/instances of a class 
 static variables store value in a common memory location. -> if one object changes the value of a static variable , all objects 
@@ -32,5 +43,23 @@ On the contrary, instance methods
 Instance-variable access requires this. 
 Static-variable access requires the class, not this. 
 An instance method can access both because it knows its class and also receives this. while the static method receives no this. 
+
+# java is pass by value
+understanding what pass - by - value actually is: 
+
+   static void change(int x) {
+         x = 50;
+    }
+
+   public static void main(String[] args) {
+    int number = 10;
+    change(number);
+
+    System.out.println(number); // 10
+} 
+
+whenever a method is called with regards to some value passed as a paramter, java does not send the original value but a copy of that value ( so inside the method, whatever changes are happening, are happening to the copied value whereas the original value stays the same!)
+
+
 
 
