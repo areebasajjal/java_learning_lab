@@ -2,8 +2,30 @@ class student {
     String name;
     int age;
     int rollno;
-    static int count = 0;
-    static String university = "COMSATS";
+    static int count;
+    static String university;
+
+    public student() { // default constrctor
+
+    }
+
+    public student(String n, int a, int r) { // parameterized constructor
+        name = n;
+        age = a;
+        rollno = r;
+        count++;
+        university = "COMSATS";
+    }
+
+    student(String studentName) {
+        name = studentName;
+        age = 0;
+    }
+
+    student(String studentName, int studentAge) {
+        name = studentName;
+        age = studentAge;
+    }
 
 
     void incrementCount() {
@@ -103,6 +125,8 @@ public class learn1OOP {
 
     System.out.println(s1 == null); // false
     // The method makes its own parameter null. It cannot make the caller’s s1 null:
+    // this means that student does not currently point to any obj 
+    // while the caller ref can still access the actual obj
 
           /* Initially:
 
@@ -115,4 +139,8 @@ public class learn1OOP {
                 s1 ───────────────> Student object
                 student ──────────> null */
     }
+
+    student s8 = new student("Areeba"); // const overloading 
+    student s9 = new student("Areeba", 20);
+    
 }

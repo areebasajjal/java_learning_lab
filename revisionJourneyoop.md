@@ -60,6 +60,38 @@ understanding what pass - by - value actually is:
 
 whenever a method is called with regards to some value passed as a paramter, java does not send the original value but a copy of that value ( so inside the method, whatever changes are happening, are happening to the copied value whereas the original value stays the same!)
 
+# constructors
+two types of constructors exist in java oop. default and parameterized.
+even if you dont declare any default constructor yourself, java automatically internally makes one.
+however, if you define a parameterized contructor, a defualt needs to be explicitly mentioned
+otherwise error would be thrown.
 
+# constructor overloading
+Constructor overloading means defining multiple constructors in the same class with different parameter lists.
+in a constructor, it is not necessary that you initialize all the values of the fieldsdefined in the class, whatever values get initialized, GOOD! the rest are automatically given a default value acc to their data type.
 
+The constructors are overloaded because their parameter lists differ in:
+
+Number of parameters
+Parameter types
+Parameter order
+
+For example, these are valid overloads:
+
+Student(String name) { }
+
+Student(int age) { }
+
+Student(String name, int age) { }
+
+Student(int age, String name) { }
+
+But changing only parameter names is not enough:
+
+Student(String name) { }
+Student(String university) { } // Error
+
+Both have the same constructor signature:
+
+Student(String)
 
