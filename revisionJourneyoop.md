@@ -100,3 +100,6 @@ Encapsulation means:
 Keep an object’s data and the operations that control that data together, while restricting direct access to its internal state.
 
 Don’t automatically create a getter and setter for every field. Expose only the operations outside code genuinely needs.
+
+# inheritance
+1. if you define a parameterized constructor in parent class and keep the child class empty ( no default const ), error will be thrown.
