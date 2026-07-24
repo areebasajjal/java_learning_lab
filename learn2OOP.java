@@ -30,19 +30,16 @@ class student extends Person { // sub class/ child class
 
 }
 
-class Teacher extends Person{ // subclass/ child class
-    int salary;
-
-   // default constructor exists here hence error is being thrown regading the non-existence of the parent constructor
-   // lets make parameterized constructor and call the parent in it using super.
+class Areeba extends student { // subclass/ child class
+    int marks;
    
-   Teacher(String name, int s) { 
-        super(name); // super is used to invoke the const of the parent class
-        salary = s;
+   Areeba(String name, int r, int m) { 
+        super(name, r); // call the parent constructor
+        marks = m;
     }
 
-    void display() {
-        System.out.println("my name is " + super.name + " and my salary is " + salary); // super.name or just name can be used here as well since the parent class has been called in the constructor of the child class
+    void newdisplay() {
+        System.out.println("my name is " + super.name + " and my roll number is " + rollno + " and my marks are " + marks);
     }
 
 }
@@ -55,13 +52,11 @@ public class learn2OOP {
     public static void main(String[] args) {
 
     student s1 = new student("John", 101);
-    Teacher t1 = new Teacher("Smith", 50000);
+    Areeba a1 = new Areeba("areeba", 21, 98);
 
     s1.display();
-    t1.display();
+    a1.newdisplay();
     s1.name = "Mike"; // changing the name of the student object
     s1.display(); // displaying the updated name of the student object
-    t1.name = "Johnson"; // changing the name of the teacher object
-    t1.display(); // displaying the updated name of the teacher object
     }
 }

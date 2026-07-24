@@ -103,3 +103,4 @@ Don’t automatically create a getter and setter for every field. Expose only th
 
 # inheritance
 1. if you define a parameterized constructor in parent class and keep the child class empty ( no default const ), error will be thrown.
+2. java forbids multiple inheritance like c extends a, b to avoid ambiguity. for example, both the parents haver a display method and you call the display method with ref to object of c, now c would be confused what method to call because both of its parents have display
