@@ -48,7 +48,37 @@ public class learn3OOP {
         // and cannot exist without it.
         // each heart just belongs to one human and cannot exist without it. if the human dies, the heart dies too.
         // aggregation example is a professor may teach many courses at the same time
+ 
+        car c = new car("red", "honda btw");
+        c.e.model = "mang"; // changing the details of the contanied obj via the container class
+        c.display();
 
+    }
+}
 
+class engine {
+    String model;
+
+    engine(String m) {
+        model = m;
+    }
+
+    void type() {
+        System.out.println(" The model of the car is " + model);
+    }
+}
+
+class car {
+    String color;
+    engine e;
+
+    car(String c, String m) {
+        color = c;
+        e = new engine(m); // component is internally owned. 
+    }
+
+    void display() {
+        System.out.println(" the color of the car is " + color);
+        e.type();
     }
 }
