@@ -107,3 +107,8 @@ Don’t automatically create a getter and setter for every field. Expose only th
 
 # composition
 strong has-a relation. contained object is provided internally in the container class and externally in aggregation.
+
+# why is composition often times more flexible?
+a class can use another object without actually becoming that object like what happens in inheritance.
+
+# polymorphism
