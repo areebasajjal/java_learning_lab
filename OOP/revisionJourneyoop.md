@@ -112,3 +112,33 @@ strong has-a relation. contained object is provided internally in the container 
 a class can use another object without actually becoming that object like what happens in inheritance.
 
 # polymorphism
+core idea is that same method name can be used by diff objects that behave differently.
+Ability of a method call to behave differently based on the object that uses it 
+
+There are two types of polymorphhism
+1. compile time -----> achieved by method overloading ---> static polymorphism ( early binding )
+
+2. runtime polymorphism ----> during execution ----> achieved by method overriding --> dynamic polymorphism ( late binding )
+
+# run time polymorphism 
+same method name, parameter list.
+same or covariant return type.
+access modifier -> can be same or more accessible. 
+static methofd -> cant be overriden -> they are hidden
+
+constuctors , final methods , private methods, since they are not inherited --> cant be overridden
+
+# ----> 
+at compile time, java only knows type of reference and the methods available in that class. so compiler asks, does the class have this method? if yes -> compile, if not -. compile time error. 
+
+methods -> run time decision
+fields -> compile time decision.
+
+# firlds do not use polymorphism. 
+fields are resolved at compile time using the reference type, because fields are not overridden, they are hidden.
+
+Animal a = new Dog(); 
+a.type; // animal 
+a.speak(); // dog barks
+
+# upcasting and down casting in polymorphism
