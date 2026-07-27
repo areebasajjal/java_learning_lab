@@ -141,4 +141,28 @@ Animal a = new Dog();
 a.type; // animal 
 a.speak(); // dog barks
 
-# upcasting and down casting in polymorphism
+# upcasting 
+assigning a subclass ref to a super class -> implicit -> safe at compile time.
+assigning a sub class object to super class reference 
+
+Animal a = new Dog();  ----> Dog d = new Dog();  ( same thing )
+                             Animal a = d;
+
+# down casting in polymorphism
+assigning a super class object to a sub class reference. -> explicit
+
+Animal a = new Dog(); // subclass 
+Dog d = (Dog) a; // superclass ref
+
+Dog d = (Dog) new Animal(); // class cast exception because animal can not be converted to dog
+
+# downcasting is causing me confusion!
+casting in java is basically done on references , not the actual objects.
+Animal a = new Dog();
+Dog d = (Dog) a;
+
+1. actual object is dog, a is the reference that points to dog object.
+2. (Dog) tells java to treat that reference as dog reference.
+3. d now points to the same object.
+
+# Casting changes or checks the reference type through which an object is accessed; it never changes the object’s actual class.
