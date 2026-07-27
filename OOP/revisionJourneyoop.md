@@ -166,3 +166,24 @@ Dog d = (Dog) a;
 3. d now points to the same object.
 
 # Casting changes or checks the reference type through which an object is accessed; it never changes the object’s actual class.
+
+# abstraction 
+The key distinction in abstract classes is:
+
+Having a constructor: the class can initialize its part of a child object.
+Being instantiable: the class is allowed to be the actual type of a complete object.
+
+Java denies this:
+
+Animal animal = new Animal();
+
+because declaring Animal as abstract is an explicit promise that the class is not complete enough to represent a standalone object.
+
+Animal animal = new Animal("Bruno");
+animal.makeSound(); // abs method
+
+what code should makeSound() execute? The method has no body. The resulting object would contain an operation that cannot be performed.
+
+Therefore Java enforces this rule at compile time:
+
+The runtime class of every created object must be concrete and provide implementations for all required instance methods.
