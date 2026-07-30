@@ -619,3 +619,29 @@ private field is inaccessible.
 # for a class to be accessible from other class in the same or diff package, declare it public.
 
 if class is inaccessible, then we cant access the public methods or variables inside of it.
+
+
+Tiny temporary program → default package is acceptable
+
+Organized or growing project → put every class in an appropriate named package. even the main.java too.
+
+# package names are normally lowercase.
+com.shop.service
+com.university.students
+pk.edu.comsats.portal
+
+# The JVM identifies a packaged class using its fully qualified name.
+
+# java.lang is imported automatically
+
+# Package versus module versus folder
+
+For now, keep these separate:
+
+Folder: a filesystem directory.
+Package: Java’s namespace and access-control grouping.
+Module: a larger Java feature that can contain many packages.
+
+In normal source projects, package names and folder structures should match, which is why packages often look like ordinary folders. But conceptually, they are not identical.
+
+[ will build more on this as mprogress into complex topics ß]
