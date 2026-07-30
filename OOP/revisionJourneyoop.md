@@ -224,3 +224,398 @@ The accurate decision rule is:
 Shared state/code and the capability only belongs to that family → abstract class alone.
 Shared state/code plus a capability needed by unrelated classes → abstract class + interface.
 Only a contract/capability, with no shared instance state → interface.
+
+# 1. what are packages?
+A package is a named group of related Java classes, interfaces, enums, and other types.
+
+For example, a university system might be organized like this:
+
+com.university
+├── students
+│   └── Student.java
+├── teachers
+│   └── Teacher.java
+└── app
+    └── Main.java
+
+The packages could be:
+
+com.university.students
+com.university.teachers
+com.university.app
+
+com.university.students.Student
+
+This is the class’s fully qualified name.
+
+# 1.1 declaring a package 
+The package declaration normally appears as the first statement in a Java file:
+
+package com.university.students;
+
+public class Student {
+    private String name;
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    public void study() {
+        System.out.println(name + " is studying");
+    }
+}
+
+This class belongs to:
+
+com.university.students
+
+The file structure should match the package:
+
+src/
+└── com/
+    └── university/
+        └── students/
+            └── Student.java
+
+Each dot represents another directory level:
+
+com.university.students
+
+becomes:
+
+com/university/students
+
+Important distinction:
+
+students is the immediate package name.
+com.university.students is the complete package name.
+Student is the class name.
+com.university.students.Student is the fully qualified class name.
+
+# 1.2 Preventing naming conflicts
+
+Two packages can contain classes with the same simple name:
+
+com.school.Student // fully qualified class name is diff in both so works
+com.course.Student
+
+They are different classes because their fully qualified names differ.
+
+# 1.3 Using a class from the same package
+Suppose both files belong to com.university.students.
+
+Student.java
+package com.university.students;
+
+public class Student {
+    public void study() {
+        System.out.println("Student is studying");
+    }
+}
+StudentManager.java
+package com.university.students;
+
+public class StudentManager {
+
+    public void manage() {
+        Student student = new Student();
+        student.study();
+    }
+}
+
+No import is required because both classes are in the same package.
+
+Java automatically looks inside the current package for Student.
+
+# 1.3 Using a class from another package
+Suppose Student remains here:
+
+package com.university.students;
+
+public class Student {
+    public void study() {
+        System.out.println("Student is studying");
+    }
+}
+
+But Main belongs to another package:
+
+package com.university.app;
+
+Then you must import Student:
+
+package com.university.app;
+
+import com.university.students.Student;
+
+public class Main {
+    public static void main(String[] args) {
+        Student student = new Student();
+        student.study();
+    }
+}
+
+The order is:
+
+package packageName;
+
+import another.package.ClassName;
+
+public class ClassName {
+}
+
+So remember:
+
+package → imports → class
+
+# 1.4 What import actually does
+An import does not copy a class into your file. It only allows you to use the class’s short name.
+
+Without an import:
+
+com.university.students.Student student =
+        new com.university.students.Student();
+
+With an import:
+
+import com.university.students.Student;
+
+you can write:
+
+Student student = new Student();
+
+These refer to the same class.
+
+# therefore, package says where the current class belongs.
+# import says which external class names may be written in short form.
+
+## 1.5 Parent Packages and Subpackages in Java
+
+A common mistake is thinking that Java packages work like normal parent and child folders.
+
+For example, the folders may look like this:
+
+```text
+com/
+└── shop/
+    ├── Main.java
+    └── service/
+        └── OrderService.java
+```
+
+This looks like `service` is inside `shop`. However, Java sees them as two completely separate packages:
+
+```text
+com.shop
+com.shop.service
+```
+
+Therefore:
+
+```text
+com.shop ≠ com.shop.service
+```
+
+The dots in a package name help organize the project, but they do not create an inheritance or parent-child access relationship.
+
+### Example
+
+Suppose `OrderService` belongs to `com.shop.service`:
+
+```java
+package com.shop.service;
+
+public class OrderService {
+
+    public void placeOrder() {
+        System.out.println("Order placed");
+    }
+}
+```
+
+A class in `com.shop` can use it, but it must import it:
+
+```java
+package com.shop;
+
+import com.shop.service.OrderService;
+
+public class Main {
+
+    public static void main(String[] args) {
+        OrderService service = new OrderService();
+        service.placeOrder();
+    }
+}
+```
+
+This works because:
+
+* `OrderService` is `public`.
+* `placeOrder()` is `public`.
+* `Main` imports `OrderService`.
+
+### What if `OrderService` is not public?
+
+```java
+package com.shop.service;
+
+class OrderService {
+
+    void placeOrder() {
+        System.out.println("Order placed");
+    }
+}
+```
+
+Because no access modifier is written, `OrderService` has package-private access.
+
+It can only be used by classes whose exact package is:
+
+```text
+com.shop.service
+```
+
+Therefore, this will not work:
+
+```java
+package com.shop;
+
+import com.shop.service.OrderService; // compilation error
+```
+
+Even though the `service` folder is physically inside the `shop` folder, `com.shop` and `com.shop.service` are different packages.
+
+## 1.5.1 Exact Same Package Rule
+
+Package-private members are accessible only when both classes have the exact same complete package declaration.
+
+These classes are in the same package:
+
+```java
+package com.shop.service;
+```
+
+```java
+package com.shop.service;
+```
+
+These classes are not in the same package:
+
+```java
+package com.shop;
+```
+
+```java
+package com.shop.service;
+```
+
+The second package name starts with the first one, but they are still separate packages.
+
+## 1.5.2 What “Cannot Access” Means
+
+Being in `com.shop` does not mean that a class can never use a class from `com.shop.service`.
+
+It means that it does not automatically receive access to the package-private classes and members of `com.shop.service`.
+
+Code in `com.shop` can still use code from `com.shop.service` when:
+
+* The class is `public`.
+* The required constructor or method is accessible.
+* The class is imported, or its fully qualified name is used.
+
+Example using an import:
+
+```java
+import com.shop.service.OrderService;
+```
+
+Example using the fully qualified name:
+
+```java
+com.shop.service.OrderService service =
+        new com.shop.service.OrderService();
+```
+
+Both refer to the same class.
+
+## 1.5.3 Important Rule About Wildcard Imports
+
+Importing everything from `com.shop` does not import classes from its subpackages:
+
+```java
+import com.shop.*;
+```
+
+This does not import:
+
+```text
+com.shop.service.OrderService
+```
+
+You must import the subpackage separately:
+
+```java
+import com.shop.service.*;
+```
+
+or import the specific class:
+
+```java
+import com.shop.service.OrderService;
+```
+
+## 1.5.4 Simple Mental Model
+
+Folders can be physically nested:
+
+```text
+com → shop → service
+```
+
+But Java treats packages as complete, separate names:
+
+```text
+"com.shop"
+"com.shop.service"
+```
+
+Think of each complete package name as a separate address.
+
+## Final Rule
+
+```text
+com.shop and com.shop.service are different packages.
+```
+
+A subpackage:
+
+* Does not inherit access from its parent package.
+* Does not automatically import classes from its parent package.
+* Does not share package-private members with its parent package.
+* Can use accessible classes through imports.
+
+Package-private access always means:
+
+```text
+Accessible only within the exact same complete package name.
+```
+# conflict in importing packages when the simple names are same
+ully qualified names are different:
+java.util.Date ≠ java.sql.Date
+
+Simple names are the same:
+Date = Date
+
+Therefore, the classes do not conflict inside their packages. The confusion occurs only when Java is asked to identify both using the same simple name, Date.
+
+# classes contained in the same package are accessible like this:
+Package-private accountCode is accessible.
+protected method is accessible.
+public method is accessible.
+private field is inaccessible.
+
+# classes contained in difference packages can only access eschothers content if public, and not otherwise.
+# for a class to be accessible from other class in the same or diff package, declare it public.
+
+if class is inaccessible, then we cant access the public methods or variables inside of it.
